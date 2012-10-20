@@ -1,12 +1,14 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
     <head>
         <!--CSS-->
         <link rel="stylesheet" href="_css/style.css" />
+        <link rel="stylesheet" href="fancybox/jquery.fancybox.css" type="text/css" media="screen" />
         
         <!--JS-->
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
         <script type="text/javascript" src="_js/zoom.js"></script>
+        <script type="text/javascript" src="fancybox/jquery.fancybox.pack.js"></script>
         
         <!--META-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -21,10 +23,12 @@
             </div>
         </div>
         <div id="content">
-            <div class="img"><img src="pic/1.jpg" /></div>
-            <div class="img"><img src="pic/2.jpg" /></div>
-            <div class="img"><img src="pic/3.jpg" /></div>
-            <div class="img"><img src="pic/4.jpg" /></div>
+            <input class="input_file" type="file" name="fichier" />
+            
+            <map name="map_mini" id="id_map_">
+
+            </map>
+            <div class="img"><img id="img_coord" src="output.jpeg" /></div>
         </div>
     </body>
 </html>

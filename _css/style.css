@@ -60,7 +60,7 @@ a img {
 }
 
 #top_header .submit_search {
-    background-image: url("_img/search.png");
+    background-image: url("../_img/search.png");
     border: 0 none;
     border-radius: 0 2px 2px 0;
     color: black;
@@ -76,7 +76,14 @@ a img {
 /* CONTENT */
 
 #content {
-    width : 959px;
+    text-align: center;
+    width : auto;
     height : auto;
     margin : auto;
+}
+
+#content .play_button {
+    position: relative;
+    left: -260px;
+    bottom: 240px;
 }
