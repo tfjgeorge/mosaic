@@ -25,10 +25,11 @@
         <div id="content">
             <input class="input_file" type="file" name="fichier" />
             
-            <map name="map_mini" id="id_map_">
-
-            </map>
-            <div class="img"><img id="img_coord" src="output.jpeg" /></div>
+            <div class="img" id="img_div">
+                <div id="cadre"></div>
+                <div id="thumb"><img class="miniature" src="" /></div>
+                <img id="img_coord" src="output.jpeg" />
+            </div>
         </div>
     </body>
 </html>

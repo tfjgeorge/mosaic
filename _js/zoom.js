@@ -1,55 +1,52 @@
 $(document).ready(function() {
     var cont_left = $("#content").position().left;
     var jsonTab = new Array();
-    $("imga").hover(function() {
-        // hover in
-        $(this).parent().parent().css("z-index", 1);
-        $(this).animate({
-           height: "500",
-           width: "500",
-           left: "-=50",
-           top: "-=50"
-        }, "medium");
-        $("<img class='play_button' src='_img/play.png' />").insertAfter(this);
-        $(this).dequeue();
-        $(this).click(function(){
-            $(this).each(function(){
-                $(".play_button").remove();
-                var current_image = $(this);
-                current_image.replaceWith('<iframe frameborder="0" width="480" height="276" src="http://www.dailymotion.com/embed/video/'+video+'?autoPlay=1"></iframe>')
-                });
-        });
-    }, function() {
-        // hover out
-        $(this).parent().parent().css("z-index", 0);
-        $(this).animate({
-            height: "32",
-            width: "32",
-            left: "+=50",
-            top: "+=50"
-        }, "medium");
-        $(".play_button").remove();
-        $(this).dequeue();
+    var document_x, document_y;
+    var current_video;
+
+    $(document).mousemove(function(e){
+        document_x = e.pageX;
+        document_y = e.pageY;
     });
-    $(".img").each(function(index) {
-        var left = (index * 160) + cont_left;
-        $(this).css("left", left + "px");
+
+    $("#img_coord").mousemove(function(e) {
+        console.log('x: '+e.pageX);
+        console.log('y: '+e.pageY);
+        var x = e.pageX;
+        var y = e.pageY;
+
+        var x_offset = this.offsetLeft;
+        var y_offset = this.offsetTop;
+
+        $('#cadre').css({'top':parseInt(y/32)*32,'left':parseInt(x/32)*32+5});
+        current_video = jsonTab[parseInt((y - y_offset)/32)][parseInt((x - x_offset)/32)];
+    });
+
+    $('#cadre').mousemove(function(e){
+        var x = e.pageX;
+        var y = e.pageY;
+
+        setTimeout(function() {
+            if (x == document_x && y == document_y) {
+                $('#thumb img').css('margin-top',-current_video['position']*120);
+                $('#thumb img').attr('src',current_video['image_url']);
+                $('#thumb').css({'top':y-60,'left':x-80});
+            }
+        },150);
     });
     
     /*coordonnées*/
-    $("#img_coord").click(function(e){
-        var x = e.pageX - this.offsetLeft;
-        var y = e.pageY - this.offsetTop;
-        var video = jsonTab[parseInt(y/32)][parseInt(x/32)];
-        $.fancybox.open({href: "http://www.dailymotion.com/embed/video/"+video+"?autoPlay=1", type: 'iframe'})});
-    
+    $("#thumb img").click(function(e){
+        $.fancybox({href: "http://www.dailymotion.com/embed/video/"+current_video['video_id']+"?autoPlay=1", type: 'iframe', closeEffect: 'none'})
+    });
+
     $.ajax({
         type: "GET",
         dataType: "json",
         url: "output.json",
         success: function(data){
            jsonTab = data;
-            }
+        }
     });
     
 });
