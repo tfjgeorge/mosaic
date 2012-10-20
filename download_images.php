@@ -4,7 +4,6 @@ $sqlite = new SQLite3('base.sqlite');
 $sqlite->query('DROP TABLE images;');
 $sqlite->query('CREATE TABLE images (r int, g int, b int, video_id string, image_url string, position int);');
 
-
 for ($page=1; $page < 11; $page++) { 
 	$videos = json_decode(file_get_contents("https://api.dailymotion.com/videos?search=obama&limit=100&page=$page&fields=filmstrip_small_url,id"));
 

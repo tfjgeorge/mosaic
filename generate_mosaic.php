@@ -3,10 +3,23 @@
 header ('Content-Type: image/jpeg');
 
 $tolerance = 20;
+$min_width = 64;
 $sqlite = new SQLite3('base.sqlite'); 
 
-$input = imagecreatefromjpeg('obama.jpeg');
-list($width, $height) = getimagesize('obama.jpeg');
+$input_raw = imagecreatefromjpeg('obama.jpeg');
+// resample image
+list($image_width, $image_height) = getimagesize('obama.jpeg');
+if ($image_width > $image_height) {
+	$width = $min_width;
+	$height = (int) ($min_width * $image_height / $image_width);
+}
+else {
+	$height = $min_width;
+	$width = (int) ($min_width * $image_width / $image_height);
+}
+$input = imagecreatetruecolor($width, $height);
+imagecopyresampled($input, $input_raw, 0, 0, 0, 0, $width, $height, $image_width, $image_height);
+
 $output = imagecreatetruecolor($width*32, $height*32);
 
 for ($y=0; $y < $height; $y++) {
