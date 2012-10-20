@@ -16,8 +16,8 @@ for ($page=1; $page < 11; $page++) {
 
 			for ($i=0; $i<8; $i++) {
 				$thumb = imagecreatetruecolor(160, 120);
-				imagecopyresized($thumb, $image, 0, 0, 0, $i*160, 160, 120, 160, 120);
-				imagecopyresampled($monopixel, $image, 0, 0, 0, $i*160, 1, 1, 160, 120);
+				imagecopyresized($thumb, $image, 0, 0, 0, $i*120, 160, 120, 160, 120);
+				imagecopyresampled($monopixel, $image, 0, 0, 0, $i*120, 1, 1, 160, 120);
 				$rgb = imagecolorat($monopixel, 0, 0);
 				$r = ($rgb >> 16) & 0xFF;
 				$g = ($rgb >> 8) & 0xFF;

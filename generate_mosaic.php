@@ -21,8 +21,10 @@ $input = imagecreatetruecolor($width, $height);
 imagecopyresampled($input, $input_raw, 0, 0, 0, 0, $width, $height, $image_width, $image_height);
 
 $output = imagecreatetruecolor($width*32, $height*32);
+$map = array();
 
 for ($y=0; $y < $height; $y++) {
+	$map[$y] = array();
 	for ($x=0; $x < $width; $x++) {
 
 		// current pixel
@@ -31,7 +33,7 @@ for ($y=0; $y < $height; $y++) {
 		$g = ($rgb >> 8) & 0xFF;
 		$b = $rgb & 0xFF;
 
-		$closest_colors = $sqlite->query('SELECT r, g, b, image_url, position FROM images WHERE '.
+		$closest_colors = $sqlite->query('SELECT r, g, b, image_url, video_id, position FROM images WHERE '.
 			'r <= '.($r+$tolerance).' AND r >= '.($r-$tolerance).
 			' AND g <= '.($g+$tolerance).' AND g >= '.($g-$tolerance).
 			' AND b <= '.($b+$tolerance).' AND b >= '.($b-$tolerance).';');
@@ -45,7 +47,9 @@ for ($y=0; $y < $height; $y++) {
 
 		if ($color) {
 			$image = imagecreatefromjpeg('images/'.urlencode($color['image_url']));
-			imagecopyresized($output, $image, $x*32, $y*32, 0, $color['position']*160, 32, 32, 120, 160);
+			$map[$y][$x] = array('video_id' => $color['video_id'], 'image_url' => $color['image_url'], 'position' => $color['position']);
+
+			imagecopyresized($output, $image, $x*32, $y*32, 0, $color['position']*120, 32, 32, 160, 120);
 		}
 		else {
 			for ($i=0; $i<32; $i++) {
@@ -59,6 +63,6 @@ for ($y=0; $y < $height; $y++) {
 }
 
 imagejpeg($output,'output.jpeg');
-
+file_put_contents('output.json', json_encode($map));
 
 ?>
