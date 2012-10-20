@@ -8,16 +8,11 @@ foreach ($videos->{'list'} as $video) {
 
 		imagecopyresized($monopixel, $image, 0, 0, 0, 0, 1, 1, 160, 120);
 		$rgb = imagecolorat($monopixel, 0, 0);
-		echo "r= ";
-		$r = ($rgb >> 16) & 0xFF;
-		echo $r;
-		echo "\ng= ";
-		$g = ($rgb >> 8) & 0xFF;
-		echo $g;
-		echo "\nb= ";
 		$b = $rgb & 0xFF;
-		echo $b;
-		echo "\n";
+		$g = ($rgb >> 8) & 0xFF;
+		$r = ($rgb >> 16) & 0xFF;
+
+		echo "r= ", $r, "\n g= ", $g, "\n b= ", $b, "\n";
 	}
 } 
 
