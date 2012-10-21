@@ -49,7 +49,7 @@ for ($y=0; $y < $height; $y++) {
 			$image = imagecreatefromjpeg('images/'.urlencode($color['image_url']));
 			$map[$y][$x] = array('video_id' => $color['video_id'], 'image_url' => $color['image_url'], 'position' => $color['position']);
 
-			imagecopyresized($output, $image, $x*32, $y*32, 0, $color['position']*120, 32, 32, 160, 120);
+			imagecopyresized($output, $image, $x*32, $y*32, 20, $color['position']*120, 32, 32, 120, 120);
 		}
 		else {
 			for ($i=0; $i<32; $i++) {
