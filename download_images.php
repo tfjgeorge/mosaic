@@ -9,22 +9,24 @@ for ($page=1; $page < 11; $page++) {
 
 	foreach ($videos->{'list'} as $video) {
 		if (!empty($video->{'filmstrip_small_url'})) {
-			$image = imagecreatefromjpeg($video->{'filmstrip_small_url'});
-			imagejpeg($image,'images/'.urlencode($video->{'filmstrip_small_url'}));
+			if ($image = imagecreatefromjpeg($video->{'filmstrip_small_url'})) {
+				imagejpeg($image,'images/'.urlencode($video->{'filmstrip_small_url'}));
 
-			$monopixel = imagecreatetruecolor(1, 1);
+				$monopixel = imagecreatetruecolor(1, 1);
+				$number = imagesy($image) / 120;
 
-			for ($i=0; $i<8; $i++) {
-				$thumb = imagecreatetruecolor(160, 120);
-				imagecopyresized($thumb, $image, 0, 0, 0, $i*120, 160, 120, 160, 120);
-				imagecopyresampled($monopixel, $image, 0, 0, 0, $i*120, 1, 1, 160, 120);
-				$rgb = imagecolorat($monopixel, 0, 0);
-				$r = ($rgb >> 16) & 0xFF;
-				$g = ($rgb >> 8) & 0xFF;
-				$b = $rgb & 0xFF;
-				echo "$r|$g|$b => ".$video->{'filmstrip_small_url'};
-				echo "\n";
-				$sqlite->query("INSERT INTO images (r, g, b, video_id, image_url, position) VALUES ($r, $g, $b, '".$video->{'id'}."', '".$video->{'filmstrip_small_url'}."', $i)");
+				for ($i=0; $i<$number; $i++) {
+					$thumb = imagecreatetruecolor(160, 120);
+					imagecopyresized($thumb, $image, 0, 0, 0, $i*120, 160, 120, 160, 120);
+					imagecopyresampled($monopixel, $image, 0, 0, 0, $i*120, 1, 1, 160, 120);
+					$rgb = imagecolorat($monopixel, 0, 0);
+					$r = ($rgb >> 16) & 0xFF;
+					$g = ($rgb >> 8) & 0xFF;
+					$b = $rgb & 0xFF;
+					echo "$r|$g|$b => ".$video->{'filmstrip_small_url'};
+					echo "\n";
+					$sqlite->query("INSERT INTO images (r, g, b, video_id, image_url, position) VALUES ($r, $g, $b, '".$video->{'id'}."', '".$video->{'filmstrip_small_url'}."', $i)");
+				}
 			}
 		}
 	}
