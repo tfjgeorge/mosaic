@@ -1,9 +1,11 @@
 <?php
 
 header ('Content-Type: image/jpeg');
+set_time_limit(0);
 
 $tolerance = 20;
 $min_width = 64;
+$sqlite = new SQLite3('base.sqlite'); 
 
 $input_raw = imagecreatefromjpeg($_FILES['fichier']['tmp_name']);
 // resample image
@@ -32,7 +34,7 @@ for ($y=0; $y < $height; $y++) {
 		$g = ($rgb >> 8) & 0xFF;
 		$b = $rgb & 0xFF;
 
-		$closest_colors = $bdd->exec('SELECT r, g, b, image_url, video_id, position FROM images WHERE '.
+		$closest_colors = $sqlite->query('SELECT r, g, b, image_url, video_id, position FROM images WHERE '.
 			'r <= '.($r+$tolerance).' AND r >= '.($r-$tolerance).
 			' AND g <= '.($g+$tolerance).' AND g >= '.($g-$tolerance).
 			' AND b <= '.($b+$tolerance).' AND b >= '.($b-$tolerance).';');

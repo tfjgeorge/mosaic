@@ -32,7 +32,7 @@ $(document).ready(function() {
         var small_image_height = parseInt($('#img_coord').css('height'));
         var small_image_width = parseInt($('#img_coord').css('width'));
 
-        $('#img_zoomed').css({'margin-top':zoomed_div_height / 2 - y / small_image_height * zoomed_image_height,'margin-left': zoomed_div_width / 2 - x / small_image_width * zoomed_image_width });
+        $('#img_zoomed').css({'margin-top':zoomed_div_height / 2 - y / small_image_height * zoomed_image_height - 16,'margin-left': zoomed_div_width / 2 - x / small_image_width * zoomed_image_width - 16 });
         var video = jsonTab[parseInt(y / small_image_height *  zoomed_image_height / 32)][parseInt(x / small_image_width *  zoomed_image_width / 32)];
         $('#thumb img').attr('src',video['image_url']);
         $('#thumb img').css('margin-top',-video['position']*120);
@@ -48,7 +48,7 @@ $(document).ready(function() {
 
         var small_image_height = parseInt($('#img_coord').css('height'));
         var small_image_width = parseInt($('#img_coord').css('width'));
-        
+
         var video = jsonTab[parseInt(y / small_image_height *  zoomed_image_height / 32)][parseInt(x / small_image_width *  zoomed_image_width / 32)];
 
         $.fancybox({href: "http://www.dailymotion.com/embed/video/"+video['video_id']+"?autoPlay=1", type: 'iframe', closeEffect: 'none'});
