@@ -78,8 +78,16 @@ img, #cadre {
 #content {
     text-align: center;
     width : auto;
+    max-width: 100%;
     height : auto;
     margin : auto;
+}
+
+#img_div {
+    max-width: 100%;
+}
+#img_div img {
+    max-width: 100%;
 }
 
 #content .play_button {
