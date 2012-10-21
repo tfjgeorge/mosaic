@@ -12,22 +12,21 @@
         
         <!--META-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            
     </head>
     <body>
         <div id="top_header_expanded">
             <div id="top_header">
                 <h1>Mozaïk</h1>
-                <input class="search" name="search" type="search" placeholder="Entrez un mot-clef" />
-                <input class="submit_search" name="submit_search" type="submit" />
+                <p class="button_create">Creer</p>
+                <p class="button_create">Demo</p>
+                
             </div>
         </div>
         <div id="content">
-            <input class="input_file" type="file" name="fichier" />
-            
             <div class="img" id="img_div">
                 <div id="cadre"></div>
                 <div id="thumb"><img class="miniature" src="" /></div>
+                <p id="reduire">cliquez ici pour réduire</p>
                 <img id="img_coord" src="output.jpeg" />
             </div>
         </div>
