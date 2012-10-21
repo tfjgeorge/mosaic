@@ -21,7 +21,7 @@ $(document).ready(function() {
 
     $('#img_coord').mousemove(function(e) {
         var x = e.pageX - this.offsetLeft;
-        var y = e.pageY - this.offsetTop - 47;
+        var y = e.pageY - this.offsetTop - 46;
 
         var zoomed_div_height = parseInt($('#zoomed_image').css('height'));
         var zoomed_div_width = parseInt($('#zoomed_image').css('width'));
@@ -41,7 +41,7 @@ $(document).ready(function() {
 
     $('#img_coord').click(function(e) {
         var x = e.pageX - this.offsetLeft;
-        var y = e.pageY - this.offsetTop - 47;
+        var y = e.pageY - this.offsetTop - 46;
 
         var zoomed_image_height = parseInt($('#img_zoomed').css('height'));
         var zoomed_image_width = parseInt($('#img_zoomed').css('width'));
@@ -51,7 +51,7 @@ $(document).ready(function() {
         
         var video = jsonTab[parseInt(y / small_image_height *  zoomed_image_height / 32)][parseInt(x / small_image_width *  zoomed_image_width / 32)];
 
-        $.fancybox({href: "http://www.dailymotion.com/embed/video/"+video['video_id']+"?autoPlay=1", type: 'iframe', closeEffect: 'none'});
+        $.fancybox({href: "http://www.dailymotion.com/embed/video/"+video['video_id']+"?autoPlay=1", type: 'iframe', closeEffect: 'none', width: '700', height: '393'});
     });
 
     $.ajax({

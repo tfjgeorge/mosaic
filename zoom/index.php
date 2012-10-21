@@ -18,8 +18,8 @@
         <div id="top_header_expanded">
             <div id="top_header">
                 <h1>Mozaïk</h1>
-                <input class="search" name="search" type="search" placeholder="Entrez un mot-clef" />
-                <input class="submit_search" name="submit_search" type="submit" />
+                <a href="../index.php"><p class="button_create">Accueil</p></a>
+                <p class="button_demo" style="display:none;"><a href="#">Demo</a></p>
             </div>
         </div>
         <div id="content">
